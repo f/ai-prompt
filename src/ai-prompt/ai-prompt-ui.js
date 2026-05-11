@@ -1,5 +1,5 @@
 /**
- * Shared visual renderer for the Prompt Embed block.
+ * Shared visual renderer for the AI Prompt block.
  *
  * IMPORTANT: This component is imported by both `edit.js` (mounted, alive React)
  * AND `save.js` (called once at save, return value serialized to HTML).

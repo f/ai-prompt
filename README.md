@@ -1,34 +1,81 @@
-# AI Prompt
-
-A Gutenberg block that renders beautiful, interactive AI prompts inline. No iframe required.
+# AI Prompt — A Gutenberg block for showing AI prompts properly
 
 [![Release](https://img.shields.io/github/v/release/f/ai-prompt?display_name=tag&sort=semver)](https://github.com/f/ai-prompt/releases)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL_v2%2B-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 [![CI](https://github.com/f/ai-prompt/actions/workflows/ci.yml/badge.svg)](https://github.com/f/ai-prompt/actions/workflows/ci.yml)
 
-Inspired by [prompts.chat](https://prompts.chat). Unlike iframe-based embeds, this block renders the prompt UI natively in your post — themed by the visitor's OS preference, zero external requests, and serializable as static HTML.
+A native WordPress block that displays AI prompts the way they're meant to be seen — with the model, mode, context chips, and composer UI your readers already recognize from their AI tools.
 
-## Features
+No iframe. No third-party service. No JavaScript at runtime. Just clean, themed HTML that respects your site's design and the visitor's OS preference.
 
-- Native Gutenberg block (`fka/ai-prompt`) — no iframe, no JavaScript runtime on the frontend.
-- Prompt text + comma-separated context: `@mentions`, `#image`, file paths, `https://` URLs.
-- Model and mode selection (Chat / Code / Ask / Plan).
-- Indicator flags: Thinking, Reasoning, Planning, Fast, Max.
-- Optional file tree sidebar.
-- Optional diff view with flashing Accept / Reject button.
-- Optional MCP tools list.
-- Auto / Light / Dark theme with configurable accent colors per mode.
-- `align: wide/full` and spacing supports.
+![AI Prompt block — Claude 4.5 Sonnet in Code mode with a file tree, diff view, and MCP tools](assets/vibe-coding-view.png)
 
-## Installation
+## The problem this solves
 
-### From a release zip (recommended)
+If you write tutorials, documentation, or blog posts about AI, you eventually need to show a prompt. Today, the options are bad:
+
+- **Code blocks** turn the prompt into something that looks like code, when it isn't. They strip the context (which model? what mode? was thinking on?). They invite copy-and-execute confusion.
+- **Blockquotes** look like quoted prose. They lose the "this is meant for an AI" framing entirely.
+- **Screenshots** go stale the moment Cursor or Claude refresh their UI. They're not crawlable, not copyable, not accessible.
+- **Iframes** are the closest thing today, but they pull in a third-party origin, can't match your theme, often break on RSS / AMP / email clients, and break entirely if the host goes down.
+
+**Prompts deserve a first-class block.** Same as code blocks earned one. Same as embed blocks did. This is that block for prompts.
+
+## Use cases
+
+- **Tutorial posts** — "How to refactor a function with Claude": show the literal prompt, model badge, thinking mode, the files in context. Your reader sees exactly what you'd type.
+- **Prompt-engineering write-ups** — compare three variants of a prompt side-by-side, each with its own model and indicators. Visible at a glance.
+- **Product documentation** — if your SaaS ships AI features, show example prompts your users can paste in. Branded with your colors via Light/Dark accents.
+- **AI tool walkthroughs** — Cursor, Claude Code, ChatGPT, Codex tutorials where the prompt + mode + file tree + diff are part of the story. This block ships all of them.
+- **Course material** — embed prompts inline in lessons without the visual whiplash of switching between prose and code blocks.
+- **Case studies** — "We shipped this with one prompt": show MCP tools, diff, accept/reject. Engineering blog posts that read like the real workflow.
+- **Release notes** — when your AI product adds a feature, demonstrate it with a real prompt embed instead of a screenshot.
+
+## What it looks like
+
+The hero above shows the block at its richest — model badge, indicators, file tree, a unified diff with an Accept button, MCP tools, and the prompt with context chips.
+
+But most of the time you'll reach for something far simpler — just a prompt with a couple of context items:
+
+![A simple AI Prompt block — GPT-5 in Ask mode with a web mention and a URL](assets/prompt-view.png)
+
+Both come from the same block. What changes is configuration, not code.
+
+The full feature surface:
+
+- A model badge (`GPT-5`, `Claude 4.5 Sonnet`, custom strings supported)
+- A mode badge (`Chat` / `Code` / `Ask` / `Plan`)
+- Indicator chips: Thinking, Reasoning, Planning, Fast, Max
+- The prompt itself, preserving whitespace
+- Context chips classified by prefix: `@web` → mention, `#image` → image, `https://…` → URL, `file.ts` → file
+- An optional file tree sidebar
+- An optional diff view with a pulsing Accept/Reject button
+- An optional MCP tools row
+- A composer footer with a send-key hint
+
+All of it themed by `prefers-color-scheme` or forced to light/dark, with per-mode accent colors.
+
+## Why not just an iframe?
+
+| Concern | Iframe embed | AI Prompt block |
+|---|---|---|
+| Page weight | Loads a full external app | A few KB of CSS, zero JS at runtime |
+| Theme fidelity | Fixed to the embed origin's design | Inherits your site, plus per-block accent colors |
+| SEO / crawlability | Prompt text is hidden from crawlers | Real HTML in `post_content`; Google reads it |
+| RSS, AMP, email | Often stripped or broken | Plain HTML survives anywhere |
+| Privacy | Third-party request per page view | Zero external requests |
+| Longevity | Breaks if the embed host goes down | Self-contained in your database |
+| Accessibility | At the mercy of the host | Real semantic elements you can audit |
+
+## Quick start
+
+### Install from a release (recommended)
 
 1. Download the latest `ai-prompt.zip` from the [Releases page](https://github.com/f/ai-prompt/releases).
-2. In your WordPress admin: **Plugins → Add New → Upload Plugin**.
-3. Upload the zip and activate.
+2. In WordPress admin: **Plugins → Add New → Upload Plugin**, pick the zip, activate.
+3. In any post or page, open the inserter and search for **AI Prompt**.
 
-### From source
+### Install from source
 
 ```bash
 git clone https://github.com/f/ai-prompt.git wp-content/plugins/ai-prompt
@@ -37,36 +84,51 @@ npm ci
 npm run build
 ```
 
-Then activate "AI Prompt" in WordPress admin.
-
 ### Auto-updates from GitHub
 
-This plugin's headers are compatible with the [Git Updater](https://git-updater.com/) plugin. Install Git Updater and your site will receive updates whenever a new release is tagged here.
+The plugin headers (`Update URI`, `GitHub Plugin URI`, `Primary Branch`) are compatible with the [Git Updater](https://git-updater.com/) plugin. Install Git Updater once, and your sites will pick up each tagged release here automatically.
 
-## Usage
+## Using the block
 
-In the block editor, type `/ai prompt` (or open the inserter and search for it). Configure the block in the right sidebar across six panels:
+In the block editor, type `/ai prompt` or open the inserter and search for "AI Prompt". The right sidebar exposes six panels:
 
-| Panel | What it controls |
+| Panel | Controls |
 |---|---|
-| Prompt | The prompt text and a comma-separated list of context items. |
-| AI Settings | Model, mode, and indicator flags. |
-| File Tree | Toggleable file tree sidebar (one path per line, indent with spaces). |
-| Diff View | Filename, old/new code, and a pulsing Accept/Reject button. |
-| MCP Tools | A list of MCP tools in `server:tool` format, one per line. |
-| Appearance | Theme mode (auto/light/dark) and accent colors. |
+| Prompt | The prompt text. A comma-separated list of context items. |
+| AI Settings | Model, mode (Chat / Code / Ask / Plan), and indicator toggles (Thinking, Reasoning, Planning, Fast, Max). |
+| File Tree | Toggleable left rail. One path per line; indent with spaces to nest. |
+| Diff View | Filename, old / new code, and a pulsing Accept / Reject button. |
+| MCP Tools | Lines like `github:create_issue`, one per line. Server and tool are styled separately. |
+| Appearance | Theme mode (`auto` / `light` / `dark`) and Light + Dark accent colors. |
 
-## Block name
+Block toolbar gives you `Wide` / `Full` alignment. The Styles tab gives you margin spacing.
 
-The block registers as `fka/ai-prompt`. In `post_content` it serializes as:
+### Context syntax
+
+Whatever you type in the Context field is split on commas and classified per item:
+
+| Prefix | Treated as |
+|---|---|
+| `@thing` | Mention chip (accent-colored) |
+| `#thing` | Image chip (pink) |
+| `https://…` | URL chip (subtle, underlined) |
+| anything else | File chip |
+
+So `@web, src/index.ts, #screenshot, https://example.com/spec` becomes four chips of four different kinds.
+
+## Block API
+
+The block registers as `fka/ai-prompt`. In `post_content`, an instance serializes as:
 
 ```html
-<!-- wp:fka/ai-prompt {"prompt":"...","mode":"chat","themeMode":"auto"} -->
+<!-- wp:fka/ai-prompt {"prompt":"Refactor this function to use async/await.","mode":"chat","model":"Claude 4.5 Sonnet","thinking":true,"themeMode":"auto","lightColor":"#3b82f6","darkColor":"#60a5fa"} -->
 <div class="wp-block-fka-ai-prompt ai-prompt-wrapper">
   ...
 </div>
 <!-- /wp:fka/ai-prompt -->
 ```
+
+All attributes are stored in the block comment delimiter — none are HTML-sourced — so the block is robust against content edits, and migration to a dynamic renderer later is trivial.
 
 ## Development
 
@@ -75,12 +137,12 @@ npm ci
 npm run start         # watch + rebuild on save
 npm run build         # one-shot production build
 npm run plugin-zip    # build a release-ready zip in the repo root
-npm run lint:js       # lint JS with @wordpress/scripts presets
-npm run lint:css      # lint SCSS
-npm run format        # format JS/SCSS
+npm run lint:js
+npm run lint:css
+npm run format
 ```
 
-Testing locally with WordPress Playground:
+### Testing in WordPress Playground (zero install)
 
 ```bash
 npx @wp-playground/cli server \
@@ -88,24 +150,37 @@ npx @wp-playground/cli server \
   --login=true
 ```
 
+Open <http://127.0.0.1:9400/wp-admin/post-new.php>, search for "AI Prompt", insert.
+
 ## Releasing
 
-Releases are automated. On any pushed tag matching `v*` (for example `v0.2.0`), the [release workflow](.github/workflows/release.yml) will:
+Releases are automated. Push a tag matching `v*` and the [release workflow](.github/workflows/release.yml) will:
 
 1. `npm ci`
 2. `npm run build`
 3. `npm run plugin-zip` to produce `ai-prompt.zip`
-4. Create a GitHub Release and attach the zip
+4. Create a GitHub Release with auto-generated notes and the zip attached
 
 To cut a release:
 
 ```bash
-# bump version in package.json, ai-prompt.php, readme.txt, block.json
+# 1. Bump the version in: package.json, ai-prompt.php, readme.txt, block.json
+# 2. Update CHANGELOG.md
 git commit -am "Release v0.2.0"
 git tag v0.2.0
 git push origin main --tags
 ```
 
+Sites using Git Updater will pick up the new release within their update interval.
+
+## Roadmap
+
+- Block variations (one-click presets per AI tool)
+- Block patterns (prompt + heading + result as a unit)
+- A "Copy prompt" button on the frontend (opt-in)
+- Block bindings — render a prompt from a custom field
+- WP.org Plugin Directory submission
+
 ## License
 
-[GPL-2.0-or-later](LICENSE). See [LICENSE](LICENSE) for the full text.
+[GPL-2.0-or-later](LICENSE). Contributions welcome — open an issue or PR.
