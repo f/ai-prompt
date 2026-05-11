@@ -8,7 +8,6 @@ import {
 	SelectControl,
 	ToggleControl,
 	ColorPalette,
-	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
 
 import AiPromptUi from './ai-prompt-ui';
@@ -66,7 +65,10 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Prompt', 'ai-prompt' ) } initialOpen={ true }>
+				<PanelBody
+					title={ __( 'Prompt', 'ai-prompt' ) }
+					initialOpen={ true }
+				>
 					<TextareaControl
 						label={ __( 'Prompt text', 'ai-prompt' ) }
 						value={ attributes.prompt }
@@ -86,7 +88,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 
-				<PanelBody title={ __( 'AI Settings', 'ai-prompt' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'AI Settings', 'ai-prompt' ) }
+					initialOpen={ false }
+				>
 					<SelectControl
 						label={ __( 'Model', 'ai-prompt' ) }
 						value={ attributes.model }
@@ -113,7 +118,9 @@ export default function Edit( { attributes, setAttributes } ) {
 						<ToggleControl
 							label={ __( 'Reasoning', 'ai-prompt' ) }
 							checked={ attributes.reasoning }
-							onChange={ ( reasoning ) => update( { reasoning } ) }
+							onChange={ ( reasoning ) =>
+								update( { reasoning } )
+							}
 							__nextHasNoMarginBottom
 						/>
 					</PanelRow>
@@ -143,16 +150,24 @@ export default function Edit( { attributes, setAttributes } ) {
 					</PanelRow>
 				</PanelBody>
 
-				<PanelBody title={ __( 'File Tree', 'ai-prompt' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'File Tree', 'ai-prompt' ) }
+					initialOpen={ false }
+				>
 					<ToggleControl
 						label={ __( 'Show file tree', 'ai-prompt' ) }
 						checked={ attributes.showFiletree }
-						onChange={ ( showFiletree ) => update( { showFiletree } ) }
+						onChange={ ( showFiletree ) =>
+							update( { showFiletree } )
+						}
 						__nextHasNoMarginBottom
 					/>
 					{ attributes.showFiletree && (
 						<TextareaControl
-							label={ __( 'File tree (one per line)', 'ai-prompt' ) }
+							label={ __(
+								'File tree (one per line)',
+								'ai-prompt'
+							) }
 							help={ __(
 								'Indent with spaces to nest.',
 								'ai-prompt'
@@ -165,7 +180,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					) }
 				</PanelBody>
 
-				<PanelBody title={ __( 'Diff View', 'ai-prompt' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Diff View', 'ai-prompt' ) }
+					initialOpen={ false }
+				>
 					<ToggleControl
 						label={ __( 'Show diff', 'ai-prompt' ) }
 						checked={ attributes.showDiff }
@@ -177,20 +195,26 @@ export default function Edit( { attributes, setAttributes } ) {
 							<TextControl
 								label={ __( 'Filename', 'ai-prompt' ) }
 								value={ attributes.diffFilename }
-								onChange={ ( diffFilename ) => update( { diffFilename } ) }
+								onChange={ ( diffFilename ) =>
+									update( { diffFilename } )
+								}
 								__nextHasNoMarginBottom
 							/>
 							<TextareaControl
 								label={ __( 'Old code', 'ai-prompt' ) }
 								value={ attributes.diffOldText }
-								onChange={ ( diffOldText ) => update( { diffOldText } ) }
+								onChange={ ( diffOldText ) =>
+									update( { diffOldText } )
+								}
 								rows={ 4 }
 								__nextHasNoMarginBottom
 							/>
 							<TextareaControl
 								label={ __( 'New code', 'ai-prompt' ) }
 								value={ attributes.diffNewText }
-								onChange={ ( diffNewText ) => update( { diffNewText } ) }
+								onChange={ ( diffNewText ) =>
+									update( { diffNewText } )
+								}
 								rows={ 4 }
 								__nextHasNoMarginBottom
 							/>
@@ -198,23 +222,33 @@ export default function Edit( { attributes, setAttributes } ) {
 								label={ __( 'Flash button', 'ai-prompt' ) }
 								value={ attributes.flashButton }
 								options={ FLASH_OPTIONS }
-								onChange={ ( flashButton ) => update( { flashButton } ) }
+								onChange={ ( flashButton ) =>
+									update( { flashButton } )
+								}
 								__nextHasNoMarginBottom
 							/>
 						</>
 					) }
 				</PanelBody>
 
-				<PanelBody title={ __( 'MCP Tools', 'ai-prompt' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'MCP Tools', 'ai-prompt' ) }
+					initialOpen={ false }
+				>
 					<ToggleControl
 						label={ __( 'Show MCP tools', 'ai-prompt' ) }
 						checked={ attributes.showMcpTools }
-						onChange={ ( showMcpTools ) => update( { showMcpTools } ) }
+						onChange={ ( showMcpTools ) =>
+							update( { showMcpTools } )
+						}
 						__nextHasNoMarginBottom
 					/>
 					{ attributes.showMcpTools && (
 						<TextareaControl
-							label={ __( 'MCP tools (one per line, server:tool)', 'ai-prompt' ) }
+							label={ __(
+								'MCP tools (one per line, server:tool)',
+								'ai-prompt'
+							) }
 							value={ attributes.mcpTools }
 							onChange={ ( mcpTools ) => update( { mcpTools } ) }
 							rows={ 4 }
@@ -223,7 +257,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					) }
 				</PanelBody>
 
-				<PanelBody title={ __( 'Appearance', 'ai-prompt' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Appearance', 'ai-prompt' ) }
+					initialOpen={ false }
+				>
 					<SelectControl
 						label={ __( 'Theme mode', 'ai-prompt' ) }
 						value={ attributes.themeMode }

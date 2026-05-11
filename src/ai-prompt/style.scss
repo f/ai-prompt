@@ -1,9 +1,8 @@
 // Visual styles for the AI Prompt block.
-// Applied on the frontend AND in the editor (because file is imported from index.js).
-//
+// Applied on the frontend AND in the editor (imported from index.js).
 // Theme handling:
 //   - Light/dark vars are set per data-theme-mode + prefers-color-scheme.
-//   - Accent colors come from inline CSS custom properties set by the React renderer.
+//   - Accent colors come from inline CSS custom properties set by JS.
 
 .ai-prompt-wrapper {
 	display: block;
@@ -12,7 +11,7 @@
 
 .ai-prompt {
 	// Default (light) palette.
-	--pe-bg: #ffffff;
+	--pe-bg: #fff;
 	--pe-fg: #111827;
 	--pe-muted-fg: #6b7280;
 	--pe-border: #e5e7eb;
@@ -33,7 +32,7 @@
 	border: 1px solid var(--pe-border);
 	border-radius: 12px;
 	overflow: hidden;
-	font: 14px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 
 	* {
@@ -41,7 +40,7 @@
 	}
 
 	// Forced dark mode.
-	&[data-theme-mode='dark'] {
+	&[data-theme-mode="dark"] {
 		--pe-bg: #0b0d11;
 		--pe-fg: #e5e7eb;
 		--pe-muted-fg: #9ca3af;
@@ -59,7 +58,8 @@
 
 	// Auto: follow user's OS preference.
 	@media (prefers-color-scheme: dark) {
-		&[data-theme-mode='auto'] {
+
+		&[data-theme-mode="auto"] {
 			--pe-bg: #0b0d11;
 			--pe-fg: #e5e7eb;
 			--pe-muted-fg: #9ca3af;
@@ -137,7 +137,7 @@
 		background: var(--pe-surface);
 		border-right: 1px solid var(--pe-border);
 		padding: 0.625rem 0.75rem;
-		font: 12px/1.45 ui-monospace, 'SF Mono', Menlo, monospace;
+		font: 12px/1.45 ui-monospace, "SF Mono", Menlo, monospace;
 		color: var(--pe-muted-fg);
 		overflow: auto;
 
@@ -216,7 +216,7 @@
 	&__diff-body {
 		margin: 0;
 		padding: 0.375rem 0;
-		font: 12px/1.5 ui-monospace, 'SF Mono', Menlo, monospace;
+		font: 12px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
 		background: var(--pe-bg);
 	}
 
@@ -314,7 +314,7 @@
 		display: inline-flex;
 		align-items: center;
 		padding: 0.125rem 0.5rem;
-		font: 11px/1.5 ui-monospace, 'SF Mono', Menlo, monospace;
+		font: 11px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
 		border-radius: 999px;
 		background: var(--pe-chip-bg);
 		color: var(--pe-chip-fg);
@@ -370,6 +370,7 @@
 	}
 
 	@media (max-width: 640px) {
+
 		&__body {
 			flex-direction: column;
 		}
@@ -384,6 +385,15 @@
 }
 
 @keyframes ai-prompt-flash {
-	0%, 100% { opacity: 1; transform: scale(1); }
-	50% { opacity: 0.6; transform: scale(0.97); }
+
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	50% {
+		opacity: 0.6;
+		transform: scale(0.97);
+	}
 }

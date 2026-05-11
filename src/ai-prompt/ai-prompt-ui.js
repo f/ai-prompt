@@ -38,7 +38,9 @@ function classifyChip( raw ) {
 function Indicator( { icon, label } ) {
 	return (
 		<span className="ai-prompt__flag">
-			<span aria-hidden="true" className="ai-prompt__flag-icon">{ icon }</span>
+			<span aria-hidden="true" className="ai-prompt__flag-icon">
+				{ icon }
+			</span>
 			{ label }
 		</span>
 	);
@@ -78,16 +80,26 @@ export default function AiPromptUi( { attributes } ) {
 		? context.split( ',' ).map( classifyChip ).filter( Boolean )
 		: [];
 
-	const filetreeLines = showFiletree && filetree
-		? filetree.split( '\n' ).map( ( l ) => l.replace( /\s+$/, '' ) ).filter( Boolean )
-		: [];
+	const filetreeLines =
+		showFiletree && filetree
+			? filetree
+					.split( '\n' )
+					.map( ( l ) => l.replace( /\s+$/, '' ) )
+					.filter( Boolean )
+			: [];
 
-	const diffOldLines = showDiff && diffOldText ? diffOldText.split( '\n' ) : [];
-	const diffNewLines = showDiff && diffNewText ? diffNewText.split( '\n' ) : [];
+	const diffOldLines =
+		showDiff && diffOldText ? diffOldText.split( '\n' ) : [];
+	const diffNewLines =
+		showDiff && diffNewText ? diffNewText.split( '\n' ) : [];
 
-	const mcpToolList = showMcpTools && mcpTools
-		? mcpTools.split( '\n' ).map( ( l ) => l.trim() ).filter( Boolean )
-		: [];
+	const mcpToolList =
+		showMcpTools && mcpTools
+			? mcpTools
+					.split( '\n' )
+					.map( ( l ) => l.trim() )
+					.filter( Boolean )
+			: [];
 
 	return (
 		<div
@@ -97,7 +109,9 @@ export default function AiPromptUi( { attributes } ) {
 			style={ wrapperStyle }
 		>
 			<header className="ai-prompt__header">
-				<span className="ai-prompt__badge ai-prompt__badge--model">{ model }</span>
+				<span className="ai-prompt__badge ai-prompt__badge--model">
+					{ model }
+				</span>
 				<span className="ai-prompt__badge ai-prompt__badge--mode">
 					{ MODE_LABELS[ mode ] || mode }
 				</span>
@@ -110,15 +124,21 @@ export default function AiPromptUi( { attributes } ) {
 
 			<div className="ai-prompt__body">
 				{ filetreeLines.length > 0 && (
-					<aside className="ai-prompt__filetree" aria-label="File tree">
+					<aside
+						className="ai-prompt__filetree"
+						aria-label="File tree"
+					>
 						<div className="ai-prompt__pane-title">Files</div>
 						<ul>
 							{ filetreeLines.map( ( line ) => {
-								const depth = ( line.match( /^\s+/ )?.[ 0 ].length ) || 0;
+								const depth =
+									line.match( /^\s+/ )?.[ 0 ].length || 0;
 								return (
 									<li
 										key={ line }
-										style={ { paddingLeft: `${ depth * 8 }px` } }
+										style={ {
+											paddingLeft: `${ depth * 8 }px`,
+										} }
 									>
 										{ line.trim() }
 									</li>
@@ -129,38 +149,62 @@ export default function AiPromptUi( { attributes } ) {
 				) }
 
 				<div className="ai-prompt__main">
-					{ showDiff && ( diffOldLines.length > 0 || diffNewLines.length > 0 ) && (
-						<section className="ai-prompt__diff" aria-label="Diff">
-							<div className="ai-prompt__diff-header">
-								<span className="ai-prompt__diff-filename">
-									{ diffFilename || 'untitled' }
-								</span>
-								{ flashButton !== 'none' && (
-									<span className={ `ai-prompt__diff-btn is-${ flashButton }` }>
-										{ flashButton === 'accept' ? 'Accept' : 'Reject' }
+					{ showDiff &&
+						( diffOldLines.length > 0 ||
+							diffNewLines.length > 0 ) && (
+							<section
+								className="ai-prompt__diff"
+								aria-label="Diff"
+							>
+								<div className="ai-prompt__diff-header">
+									<span className="ai-prompt__diff-filename">
+										{ diffFilename || 'untitled' }
 									</span>
-								) }
-							</div>
-							<pre className="ai-prompt__diff-body">
-								{ diffOldLines.map( ( line, i ) => (
-									<div key={ `o${ i }` } className="ai-prompt__diff-line is-old">
-										<span className="ai-prompt__diff-marker">−</span>
-										<span>{ line }</span>
-									</div>
-								) ) }
-								{ diffNewLines.map( ( line, i ) => (
-									<div key={ `n${ i }` } className="ai-prompt__diff-line is-new">
-										<span className="ai-prompt__diff-marker">+</span>
-										<span>{ line }</span>
-									</div>
-								) ) }
-							</pre>
-						</section>
-					) }
+									{ flashButton !== 'none' && (
+										<span
+											className={ `ai-prompt__diff-btn is-${ flashButton }` }
+										>
+											{ flashButton === 'accept'
+												? 'Accept'
+												: 'Reject' }
+										</span>
+									) }
+								</div>
+								<pre className="ai-prompt__diff-body">
+									{ diffOldLines.map( ( line, i ) => (
+										<div
+											key={ `o${ i }` }
+											className="ai-prompt__diff-line is-old"
+										>
+											<span className="ai-prompt__diff-marker">
+												−
+											</span>
+											<span>{ line }</span>
+										</div>
+									) ) }
+									{ diffNewLines.map( ( line, i ) => (
+										<div
+											key={ `n${ i }` }
+											className="ai-prompt__diff-line is-new"
+										>
+											<span className="ai-prompt__diff-marker">
+												+
+											</span>
+											<span>{ line }</span>
+										</div>
+									) ) }
+								</pre>
+							</section>
+						) }
 
 					{ mcpToolList.length > 0 && (
-						<section className="ai-prompt__mcp" aria-label="MCP tools">
-							<div className="ai-prompt__pane-title">MCP Tools</div>
+						<section
+							className="ai-prompt__mcp"
+							aria-label="MCP tools"
+						>
+							<div className="ai-prompt__pane-title">
+								MCP Tools
+							</div>
 							<ul>
 								{ mcpToolList.map( ( tool ) => {
 									const [ server, name ] = tool.split( ':' );
@@ -168,9 +212,15 @@ export default function AiPromptUi( { attributes } ) {
 										<li key={ tool }>
 											{ name ? (
 												<>
-													<span className="ai-prompt__mcp-server">{ server }</span>
-													<span className="ai-prompt__mcp-sep">:</span>
-													<span className="ai-prompt__mcp-name">{ name }</span>
+													<span className="ai-prompt__mcp-server">
+														{ server }
+													</span>
+													<span className="ai-prompt__mcp-sep">
+														:
+													</span>
+													<span className="ai-prompt__mcp-name">
+														{ name }
+													</span>
 												</>
 											) : (
 												tool
@@ -182,7 +232,10 @@ export default function AiPromptUi( { attributes } ) {
 						</section>
 					) }
 
-					<section className="ai-prompt__composer" aria-label="Prompt">
+					<section
+						className="ai-prompt__composer"
+						aria-label="Prompt"
+					>
 						<div className="ai-prompt__prompt">
 							{ prompt || (
 								<span className="ai-prompt__placeholder">
@@ -205,7 +258,9 @@ export default function AiPromptUi( { attributes } ) {
 						) }
 
 						<div className="ai-prompt__composer-footer">
-							<span className="ai-prompt__hint">⌘ + ↵ to send</span>
+							<span className="ai-prompt__hint">
+								⌘ + ↵ to send
+							</span>
 							<span
 								className="ai-prompt__send"
 								role="img"

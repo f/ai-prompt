@@ -7,7 +7,7 @@
 	"category": "embed",
 	"icon": "format-chat",
 	"description": "Embed beautiful, interactive AI prompts inline. No iframe required.",
-	"keywords": ["prompt", "ai", "embed", "chat", "llm"],
+	"keywords": [ "prompt", "ai", "embed", "chat", "llm" ],
 	"example": {
 		"attributes": {
 			"prompt": "Refactor this function to use async/await.",
@@ -37,7 +37,7 @@
 		"mode": {
 			"type": "string",
 			"default": "chat",
-			"enum": ["chat", "code", "ask", "plan"]
+			"enum": [ "chat", "code", "ask", "plan" ]
 		},
 		"thinking": { "type": "boolean", "default": false },
 		"reasoning": { "type": "boolean", "default": false },
@@ -46,21 +46,29 @@
 		"max": { "type": "boolean", "default": false },
 		"lightColor": { "type": "string", "default": "#3b82f6" },
 		"darkColor": { "type": "string", "default": "#60a5fa" },
-		"themeMode": { "type": "string", "default": "auto", "enum": ["auto", "light", "dark"] },
+		"themeMode": {
+			"type": "string",
+			"default": "auto",
+			"enum": [ "auto", "light", "dark" ]
+		},
 		"showFiletree": { "type": "boolean", "default": false },
 		"filetree": { "type": "string", "default": "" },
 		"showDiff": { "type": "boolean", "default": false },
 		"diffFilename": { "type": "string", "default": "" },
 		"diffOldText": { "type": "string", "default": "" },
 		"diffNewText": { "type": "string", "default": "" },
-		"flashButton": { "type": "string", "default": "none", "enum": ["none", "accept", "reject"] },
+		"flashButton": {
+			"type": "string",
+			"default": "none",
+			"enum": [ "none", "accept", "reject" ]
+		},
 		"showMcpTools": { "type": "boolean", "default": false },
 		"mcpTools": { "type": "string", "default": "" }
 	},
 	"supports": {
 		"html": false,
 		"anchor": true,
-		"align": ["wide", "full"],
+		"align": [ "wide", "full" ],
 		"spacing": { "margin": true }
 	},
 	"textdomain": "ai-prompt",
