@@ -1,0 +1,39 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "AI Prompt Demo",
+		"description": "Try the AI Prompt Gutenberg block with a preloaded vibecoding tutorial post.",
+		"author": "f"
+	},
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"landingPage": "/how-to-vibecode-a-gutenberg-block/",
+	"login": true,
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "url",
+				"url": "https://github.com/f/ai-prompt/releases/latest/download/ai-prompt.zip",
+				"caption": "Downloading AI Prompt"
+			},
+			"options": {
+				"activate": false
+			}
+		},
+		{
+			"step": "activatePlugin",
+			"pluginPath": "ai-prompt/ai-prompt.php",
+			"pluginName": "AI Prompt"
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php\nrequire_once '/wordpress/wp-load.php';\n\n$source_url = 'https://raw.githubusercontent.com/f/ai-prompt/main/examples/how-to-vibecode-a-gutenberg-block.html';\n$content = file_get_contents( $source_url );\n\nif ( false === $content || '' === trim( $content ) ) {\n\t$content = '<!-- wp:paragraph --><p>AI Prompt is active, but the demo post source could not be fetched.</p><!-- /wp:paragraph -->';\n}\n\n$slug = 'how-to-vibecode-a-gutenberg-block';\n$existing = get_page_by_path( $slug, OBJECT, 'post' );\n\n$post_data = array(\n\t'post_title'   => 'How to vibecode a Gutenberg block',\n\t'post_name'    => $slug,\n\t'post_status'  => 'publish',\n\t'post_type'    => 'post',\n\t'post_excerpt' => 'A production-style tutorial showing how AI Prompt blocks can document a vibecoding workflow for a simple Tip Card Gutenberg block.',\n\t'post_content' => $content,\n);\n\nif ( $existing ) {\n\t$post_data['ID'] = $existing->ID;\n\t$post_id = wp_update_post( wp_slash( $post_data ) );\n} else {\n\t$post_id = wp_insert_post( wp_slash( $post_data ) );\n}\n\nupdate_option( 'blogname', 'AI Prompt Playground' );\nupdate_option( 'blogdescription', 'A live demo of first-class prompt embeds in Gutenberg.' );\nupdate_option( 'show_on_front', 'posts' );\n\nif ( ! is_wp_error( $post_id ) && $post_id ) {\n\tupdate_post_meta( $post_id, '_ai_prompt_playground_demo', '1' );\n}\n"
+		}
+	]
+}

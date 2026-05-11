@@ -3,10 +3,13 @@
 [![Release](https://img.shields.io/github/v/release/f/ai-prompt?display_name=tag&sort=semver)](https://github.com/f/ai-prompt/releases)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL_v2%2B-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 [![CI](https://github.com/f/ai-prompt/actions/workflows/ci.yml/badge.svg)](https://github.com/f/ai-prompt/actions/workflows/ci.yml)
+[![Try in WordPress Playground](https://img.shields.io/badge/Try%20in-WordPress%20Playground-3858e9?logo=wordpress&logoColor=white)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/f/ai-prompt/main/blueprint.json)
 
 A native WordPress block that displays AI prompts the way they're meant to be seen — with the model, mode, context chips, and composer UI your readers already recognize from their AI tools.
 
 No iframe. No third-party service required. Just clean, themed HTML with a tiny frontend script only for copying prompts to the clipboard.
+
+[Try the live demo in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/f/ai-prompt/main/blueprint.json).
 
 ![AI Prompt block — Claude 4.5 Sonnet in Code mode with a file tree, diff view, and MCP tools](assets/vibe-coding-view.png)
 
