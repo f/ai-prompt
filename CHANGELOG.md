@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-12
+
+### Added
+- Always-visible Copy button that copies prompt text to the clipboard.
+- Optional Run dropdown with mode-aware defaults.
+- Configurable Run targets using `Label | URL` lines and `{prompt}` interpolation.
+- Custom model name support.
+- Collapsible/expandable folders in the file tree.
+- Clickable/selectable file rows.
+
+### Changed
+- Updated model presets to newer GPT, Claude, Gemini, Grok, DeepSeek, Kimi, Qwen, and Llama names.
+- Reworked file tree rendering to parse slash-separated paths into nested folders/files with icons.
+- Allowed the Run dropdown to escape the block bounds instead of being clipped.
+- Updated docs to describe the tiny frontend clipboard helper.
+
 ## [0.1.0] - 2026-05-11
 
 ### Added
@@ -18,5 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `align: wide/full` and spacing/margin block supports.
 - GitHub Actions workflow for build-and-release-on-tag.
 
-[Unreleased]: https://github.com/f/ai-prompt/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/f/ai-prompt/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/f/ai-prompt/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/f/ai-prompt/releases/tag/v0.1.0

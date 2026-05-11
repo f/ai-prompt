@@ -6,7 +6,7 @@
 
 A native WordPress block that displays AI prompts the way they're meant to be seen — with the model, mode, context chips, and composer UI your readers already recognize from their AI tools.
 
-No iframe. No third-party service. No JavaScript at runtime. Just clean, themed HTML that respects your site's design and the visitor's OS preference.
+No iframe. No third-party service required. Just clean, themed HTML with a tiny frontend script only for copying prompts to the clipboard.
 
 ![AI Prompt block — Claude 4.5 Sonnet in Code mode with a file tree, diff view, and MCP tools](assets/vibe-coding-view.png)
 
@@ -33,7 +33,7 @@ If you write tutorials, documentation, or blog posts about AI, you eventually ne
 
 ## What it looks like
 
-The hero above shows the block at its richest — model badge, indicators, file tree, a unified diff with an Accept button, MCP tools, and the prompt with context chips.
+The hero above shows the block at its richest — model badge, indicators, a parsed file tree, a unified diff with an Accept button, MCP tools, and the prompt with context chips.
 
 But most of the time you'll reach for something far simpler — just a prompt with a couple of context items:
 
@@ -43,14 +43,16 @@ Both come from the same block. What changes is configuration, not code.
 
 The full feature surface:
 
-- A model badge (`GPT-5`, `Claude 4.5 Sonnet`, custom strings supported)
+- A model badge (`GPT-5.5`, `Claude Sonnet 4.8`, or any custom model name)
 - A mode badge (`Chat` / `Code` / `Ask` / `Plan`)
 - Indicator chips: Thinking, Reasoning, Planning, Fast, Max
 - The prompt itself, preserving whitespace
 - Context chips classified by prefix: `@web` → mention, `#image` → image, `https://…` → URL, `file.ts` → file
-- An optional file tree sidebar
+- An optional parsed file tree sidebar, built from slash-separated paths
 - An optional diff view with a pulsing Accept/Reject button
 - An optional MCP tools row
+- An optional single Run button with a small dropdown of relevant tools (ChatGPT, Claude, Cursor, GitHub Copilot, v0, Bolt, Perplexity)
+- A Copy button that is always visible and copies the prompt text to the clipboard
 - A composer footer with a send-key hint
 
 All of it themed by `prefers-color-scheme` or forced to light/dark, with per-mode accent colors.
@@ -59,7 +61,7 @@ All of it themed by `prefers-color-scheme` or forced to light/dark, with per-mod
 
 | Concern | Iframe embed | AI Prompt block |
 |---|---|---|
-| Page weight | Loads a full external app | A few KB of CSS, zero JS at runtime |
+| Page weight | Loads a full external app | A few KB of CSS plus a tiny clipboard helper |
 | Theme fidelity | Fixed to the embed origin's design | Inherits your site, plus per-block accent colors |
 | SEO / crawlability | Prompt text is hidden from crawlers | Real HTML in `post_content`; Google reads it |
 | RSS, AMP, email | Often stripped or broken | Plain HTML survives anywhere |
@@ -95,11 +97,25 @@ In the block editor, type `/ai prompt` or open the inserter and search for "AI P
 | Panel | Controls |
 |---|---|
 | Prompt | The prompt text. A comma-separated list of context items. |
-| AI Settings | Model, mode (Chat / Code / Ask / Plan), and indicator toggles (Thinking, Reasoning, Planning, Fast, Max). |
+| AI Settings | Model, custom model name, mode (Chat / Code / Ask / Plan), and indicator toggles (Thinking, Reasoning, Planning, Fast, Max). |
+| Run Dropdown | Toggle the single Run button and optionally provide custom `Label | URL` targets with `{prompt}` interpolation. |
 | File Tree | Toggleable left rail. One path per line; indent with spaces to nest. |
 | Diff View | Filename, old / new code, and a pulsing Accept / Reject button. |
 | MCP Tools | Lines like `github:create_issue`, one per line. Server and tool are styled separately. |
 | Appearance | Theme mode (`auto` / `light` / `dark`) and Light + Dark accent colors. |
+
+The Run dropdown is generated from the block mode:
+
+- `Code` shows code-oriented targets like Cursor, GitHub Copilot, v0, and Bolt.
+- `Chat` / `Ask` show assistant and search targets like ChatGPT, Claude, and Perplexity.
+- `Plan` shows planning-oriented targets like ChatGPT, Claude, and Manus.
+
+These dropdown items are plain links. The block does not execute commands. To override the defaults, add one target per line in the Run Dropdown panel:
+
+```text
+Cursor | cursor://anysphere.cursor-deeplink/prompt?text={prompt}
+Claude | https://claude.ai/new?q={prompt}
+```
 
 Block toolbar gives you `Wide` / `Full` alignment. The Styles tab gives you margin spacing.
 

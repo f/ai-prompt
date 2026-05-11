@@ -14,18 +14,24 @@ import AiPromptUi from './ai-prompt-ui';
 import './editor.scss';
 
 const MODEL_OPTIONS = [
-	'GPT-5',
-	'GPT-4o',
-	'o3',
-	'o4-mini',
-	'Claude 4.5 Sonnet',
-	'Claude 4 Opus',
-	'Gemini 3',
-	'Gemini 2.5 Pro',
-	'Grok 4',
-	'DeepSeek R2',
-	'Llama 4',
-].map( ( value ) => ( { value, label: value } ) );
+	{ value: 'GPT-5.5', label: 'GPT-5.5' },
+	{ value: 'GPT-5.5 Pro', label: 'GPT-5.5 Pro' },
+	{ value: 'GPT-5', label: 'GPT-5' },
+	{ value: 'Claude Sonnet 4.8', label: 'Claude Sonnet 4.8' },
+	{ value: 'Claude Opus 4.7', label: 'Claude Opus 4.7' },
+	{ value: 'Gemini 3.1 Pro', label: 'Gemini 3.1 Pro' },
+	{ value: 'Gemini 3.1 Flash-Lite', label: 'Gemini 3.1 Flash-Lite' },
+	{
+		value: 'Grok 4.20 Multi-Agent Beta',
+		label: 'Grok 4.20 Multi-Agent Beta',
+	},
+	{ value: 'DeepSeek V4-Pro', label: 'DeepSeek V4-Pro' },
+	{ value: 'DeepSeek V4-Flash', label: 'DeepSeek V4-Flash' },
+	{ value: 'Kimi K2.6', label: 'Kimi K2.6' },
+	{ value: 'Qwen 3.6 Max-Preview', label: 'Qwen 3.6 Max-Preview' },
+	{ value: 'Llama 4 Scout', label: 'Llama 4 Scout' },
+	{ value: 'custom', label: 'Custom…' },
+];
 
 const MODE_OPTIONS = [
 	{ value: 'chat', label: 'Chat' },
@@ -99,6 +105,24 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( model ) => update( { model } ) }
 						__nextHasNoMarginBottom
 					/>
+					{ attributes.model === 'custom' && (
+						<TextControl
+							label={ __( 'Custom model name', 'ai-prompt' ) }
+							help={ __(
+								'Shown in the model badge exactly as typed.',
+								'ai-prompt'
+							) }
+							value={ attributes.customModel }
+							onChange={ ( customModel ) =>
+								update( { customModel } )
+							}
+							placeholder={ __(
+								'Example: Claude Opus 4.1',
+								'ai-prompt'
+							) }
+							__nextHasNoMarginBottom
+						/>
+					) }
 					<SelectControl
 						label={ __( 'Mode', 'ai-prompt' ) }
 						value={ attributes.mode }
@@ -151,6 +175,42 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				<PanelBody
+					title={ __( 'Run Dropdown', 'ai-prompt' ) }
+					initialOpen={ false }
+				>
+					<ToggleControl
+						label={ __( 'Show Run button', 'ai-prompt' ) }
+						help={ __(
+							'Adds one Run button with a dropdown of static links for the selected mode.',
+							'ai-prompt'
+						) }
+						checked={ attributes.showRunButtons }
+						onChange={ ( showRunButtons ) =>
+							update( { showRunButtons } )
+						}
+						__nextHasNoMarginBottom
+					/>
+					{ attributes.showRunButtons && (
+						<TextareaControl
+							label={ __( 'Custom run targets', 'ai-prompt' ) }
+							help={ __(
+								'Optional. One per line: Label | URL. Use {prompt} where the encoded prompt should go. Leave blank for mode defaults.',
+								'ai-prompt'
+							) }
+							value={ attributes.runTargets }
+							onChange={ ( runTargets ) =>
+								update( { runTargets } )
+							}
+							placeholder={
+								'Cursor | cursor://anysphere.cursor-deeplink/prompt?text={prompt}\nClaude | https://claude.ai/new?q={prompt}'
+							}
+							rows={ 5 }
+							__nextHasNoMarginBottom
+						/>
+					) }
+				</PanelBody>
+
+				<PanelBody
 					title={ __( 'File Tree', 'ai-prompt' ) }
 					initialOpen={ false }
 				>
@@ -169,7 +229,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								'ai-prompt'
 							) }
 							help={ __(
-								'Indent with spaces to nest.',
+								'Use slash-separated paths. End folder-only entries with /.',
 								'ai-prompt'
 							) }
 							value={ attributes.filetree }
