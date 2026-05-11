@@ -4,7 +4,7 @@ Tags:              gutenberg, block, ai, prompt, llm
 Tested up to:      6.8
 Requires at least: 6.7
 Requires PHP:      7.4
-Stable tag:        0.2.0
+Stable tag:        0.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,7 @@ If you write tutorials, documentation, or blog posts about AI, you eventually ne
 * Optional single Run button with static links for relevant tools like ChatGPT, Claude, Cursor, GitHub Copilot, v0, Bolt, Perplexity, and Manus
 * Configurable run targets using `Label | URL` lines and a `{prompt}` variable
 * Always-visible Copy button that copies the prompt text to the clipboard
+* Optional page-font inheritance for matching the surrounding theme
 * Auto / Light / Dark theme with independent accent colors per mode
 * `align: wide/full` and spacing supports
 
@@ -92,6 +93,11 @@ Yes. The Model field accepts free text. The dropdown is a convenience for common
 2. A minimal AI Prompt block: GPT-5 in Ask mode with a single Thinking indicator, a web mention, and a URL context chip.
 
 == Changelog ==
+
+= 0.3.0 =
+* Added page-font inheritance option for matching the surrounding theme.
+* Added a reusable "How to vibecode a Gutenberg block" example post source.
+* Included examples in the release zip.
 
 = 0.2.0 =
 * Added an always-visible Copy button for copying prompt text to the clipboard.

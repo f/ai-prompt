@@ -263,6 +263,7 @@ export default function AiPromptUi( { attributes } ) {
 		lightColor,
 		darkColor,
 		themeMode,
+		inheritFont,
 		showFiletree,
 		filetree,
 		showDiff,
@@ -316,7 +317,9 @@ export default function AiPromptUi( { attributes } ) {
 
 	return (
 		<div
-			className="ai-prompt"
+			className={ `ai-prompt ${
+				inheritFont ? 'is-font-inherited' : ''
+			}` }
 			data-theme-mode={ themeMode }
 			data-mode={ mode }
 			style={ wrapperStyle }

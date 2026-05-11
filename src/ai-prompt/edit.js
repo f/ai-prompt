@@ -328,6 +328,18 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( themeMode ) => update( { themeMode } ) }
 						__nextHasNoMarginBottom
 					/>
+					<ToggleControl
+						label={ __( 'Inherit page font', 'ai-prompt' ) }
+						help={ __(
+							'Use the surrounding theme font for the block chrome and prompt text.',
+							'ai-prompt'
+						) }
+						checked={ attributes.inheritFont }
+						onChange={ ( inheritFont ) =>
+							update( { inheritFont } )
+						}
+						__nextHasNoMarginBottom
+					/>
 					<p>{ __( 'Light accent', 'ai-prompt' ) }</p>
 					<ColorPalette
 						colors={ COLOR_PRESETS }

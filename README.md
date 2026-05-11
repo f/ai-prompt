@@ -102,7 +102,7 @@ In the block editor, type `/ai prompt` or open the inserter and search for "AI P
 | File Tree | Toggleable left rail. One path per line; indent with spaces to nest. |
 | Diff View | Filename, old / new code, and a pulsing Accept / Reject button. |
 | MCP Tools | Lines like `github:create_issue`, one per line. Server and tool are styled separately. |
-| Appearance | Theme mode (`auto` / `light` / `dark`) and Light + Dark accent colors. |
+| Appearance | Theme mode (`auto` / `light` / `dark`), page-font inheritance, and Light + Dark accent colors. |
 
 The Run dropdown is generated from the block mode:
 

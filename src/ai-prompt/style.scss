@@ -40,6 +40,10 @@
 		box-sizing: border-box;
 	}
 
+	&.is-font-inherited {
+		font-family: inherit;
+	}
+
 	// Forced dark mode.
 	&[data-theme-mode="dark"] {
 		--pe-bg: #0b0d11;

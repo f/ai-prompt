@@ -1,6 +1,6 @@
 {
 	"name": "ai-prompt",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "A Gutenberg block that renders beautiful, interactive AI prompts inline — no iframe required.",
 	"author": {
 		"name": "fka",
@@ -27,6 +27,7 @@
 	],
 	"files": [
 		"build",
+		"examples",
 		"ai-prompt.php",
 		"readme.txt",
 		"LICENSE"
