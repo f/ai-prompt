@@ -1,0 +1,52 @@
+{
+	"name": "ai-prompt",
+	"version": "0.1.0",
+	"description": "A Gutenberg block that renders beautiful, interactive AI prompts inline — no iframe required.",
+	"author": {
+		"name": "fka",
+		"url": "https://fka.dev"
+	},
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://github.com/f/ai-prompt",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/f/ai-prompt.git"
+	},
+	"bugs": {
+		"url": "https://github.com/f/ai-prompt/issues"
+	},
+	"keywords": [
+		"wordpress",
+		"wordpress-plugin",
+		"gutenberg",
+		"gutenberg-block",
+		"ai",
+		"prompt",
+		"llm",
+		"chat"
+	],
+	"files": [
+		"build",
+		"ai-prompt.php",
+		"readme.txt",
+		"LICENSE"
+	],
+	"scripts": {
+		"build": "wp-scripts build --blocks-manifest",
+		"start": "wp-scripts start --blocks-manifest",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip"
+	},
+	"dependencies": {
+		"@wordpress/block-editor": "latest",
+		"@wordpress/blocks": "latest",
+		"@wordpress/components": "latest",
+		"@wordpress/i18n": "latest"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^32.1.0"
+	}
+}

@@ -1,0 +1,70 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "fka/ai-prompt",
+	"version": "0.1.0",
+	"title": "AI Prompt",
+	"category": "embed",
+	"icon": "format-chat",
+	"description": "Embed beautiful, interactive AI prompts inline. No iframe required.",
+	"keywords": ["prompt", "ai", "embed", "chat", "llm"],
+	"example": {
+		"attributes": {
+			"prompt": "Refactor this function to use async/await.",
+			"context": "@web, file.ts, #image",
+			"model": "Claude 4.5 Sonnet",
+			"mode": "chat",
+			"thinking": true,
+			"max": false,
+			"lightColor": "#3b82f6",
+			"darkColor": "#60a5fa",
+			"themeMode": "auto"
+		}
+	},
+	"attributes": {
+		"prompt": {
+			"type": "string",
+			"default": "Hello! This is a sample prompt to show how the embed preview works."
+		},
+		"context": {
+			"type": "string",
+			"default": "@web, #image"
+		},
+		"model": {
+			"type": "string",
+			"default": "GPT-5"
+		},
+		"mode": {
+			"type": "string",
+			"default": "chat",
+			"enum": ["chat", "code", "ask", "plan"]
+		},
+		"thinking": { "type": "boolean", "default": false },
+		"reasoning": { "type": "boolean", "default": false },
+		"planning": { "type": "boolean", "default": false },
+		"fast": { "type": "boolean", "default": false },
+		"max": { "type": "boolean", "default": false },
+		"lightColor": { "type": "string", "default": "#3b82f6" },
+		"darkColor": { "type": "string", "default": "#60a5fa" },
+		"themeMode": { "type": "string", "default": "auto", "enum": ["auto", "light", "dark"] },
+		"showFiletree": { "type": "boolean", "default": false },
+		"filetree": { "type": "string", "default": "" },
+		"showDiff": { "type": "boolean", "default": false },
+		"diffFilename": { "type": "string", "default": "" },
+		"diffOldText": { "type": "string", "default": "" },
+		"diffNewText": { "type": "string", "default": "" },
+		"flashButton": { "type": "string", "default": "none", "enum": ["none", "accept", "reject"] },
+		"showMcpTools": { "type": "boolean", "default": false },
+		"mcpTools": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true }
+	},
+	"textdomain": "ai-prompt",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
